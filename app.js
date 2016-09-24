@@ -1,61 +1,51 @@
-$(document).ready(function () {
-  $('#employeeInfo').on('submit', function (event) {
-    event.preventDefault();
+$(document).ready(function() {
+    $('#employeeInfo').on('submit', function(event) {
+        event.preventDefault();
 
-    var employee = {};
+        var employee = {};
+        var endSal = 0;
+        var empArray = [];
 
-    var fields = $('#employeeInfo').serializeArray();
-    console.log('fields', fields);
+        var fields = $('#employeeInfo').serializeArray();
+        console.log('fields', fields);
 
-    fields.forEach(function (element, index) {
-      employee[element.name] = element.value;
+        fields.forEach(function(element, index) {
+            employee[element.name] = element.value;
 
+        });
+
+        console.log('employee object', employee);
+
+        employee.employeeSalary = parseFloat(employee.employeeSalary);
+        endSal = endSal + Math.round(employee.employeeSalary / 12).toFixed(2);
+
+        console.log(endSal);
+        console.log(employee.employeeSalary);
+
+        empArray.push(employee);
+
+        console.log(empArray);
+
+        $("#employeeMonthlySalary").text("$" + endSal);
+
+        // clear form data
+        $('#employeeInfo').find('input[type=text]').val('');
+        $('#employeeInfo').find('input[type=number]').val('');
+
+
+        // appending to the DOM
+        appendDom(employee);
     });
 
-    console.log('employee object', employee);
+    function appendDom(empInfo) {
+        var $emp = $('<div class="employee"></div>');
 
-var empSal = parseInt(employee.employeeSalary);
-console.log(empSal);
-var monthlySalary = Math.round(empSal/12);
-console.log(monthlySalary);
+        $emp.append('<p>' + empInfo.employeeFirstName + ' ' + empInfo.employeeLastName + '</p>');
+        $emp.append('<p>' + empInfo.employeeIdNumber + '</p>');
+        $emp.append('<p>' + empInfo.employeeJobTitle + '</p>');
 
+        $emp.append('<p>' + empInfo.employeeSalary + '</p>');
 
-$("#employeeMonthlySalary").append(monthlySalary);
-
-
-
-
-    // clear form data
-    $('#employeeInfo').find('input[type=text]').val('');
-    $('#employeeInfo').find('input[type=number]').val('');
-
-
-    //monthly salary container
-    //$(#employeeMonthlySalary).append();
-    // appending to the DOM
-    appendDom(employee);
-  });
-
-//store object in array
-// var storeEmployee = [];
-//
-// storeEmployee.push(employee);
-// console.log('store employee', storeEmployee);
-
-
-
-  function appendDom(empInfo) {
-    var $emp = $('<div class="employee"></div>');
-
-    $emp.append('<p>' + empInfo.employeeFirstName + ' ' + empInfo.employeeLastName + '</p>');
-    $emp.append('<p>' + empInfo.employeeIdNumber + '</p>');
-    $emp.append('<p>' + empInfo.employeeJobTitle + '</p>');
-
-    $emp.append('<p>' + empInfo.employeeSalary + '</p>');
-
-    $('#employeeData').append($emp);
-  }
+        $('#employeeData').append($emp);
+    }
 });
-
-
-//select part of table that corresponding to table and

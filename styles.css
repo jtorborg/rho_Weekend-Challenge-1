@@ -1,5 +1,42 @@
 body {
 
-background-color: papayawhip;
+background-color: #EBE3E0;
+font-family: 'Open Sans', serif;
+
+}
+
+.employee {
+
+border-style: solid;
+border-color: red;
+border-width: 3px;
+display: block;
+
+}
+
+#employeeInfo {
+
+font-family: 'Open Sans', serif;
+background-color: #517398;
+
+
+}
+
+
+
+#employeeData {
+
+background-color: #E3D6C6;
+font-family: 'Open Sans', serif;
+
+
+}
+
+
+#employeeMonthlySalary {
+
+background-color: #DDE0CD;
+font-family: 'Open Sans', serif;
+
 
 }

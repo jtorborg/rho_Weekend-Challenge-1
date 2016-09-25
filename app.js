@@ -1,10 +1,12 @@
+var employee = {};
+var singleMonthly = 0;
+var totalMonthly = 0;
+//var employeeSal = {};
 $(document).ready(function() {
     $('#employeeInfo').on('submit', function(event) {
         event.preventDefault();
 
-        var employee = {};
-        var endSal = 0;
-        var empArray = [];
+        //var empArray = [];
 
         var fields = $('#employeeInfo').serializeArray();
         console.log('fields', fields);
@@ -16,17 +18,10 @@ $(document).ready(function() {
 
         console.log('employee object', employee);
 
-        employee.employeeSalary = parseFloat(employee.employeeSalary);
-        endSal = endSal + Math.round(employee.employeeSalary / 12).toFixed(2);
-
-        console.log(endSal);
-        console.log(employee.employeeSalary);
-
-        empArray.push(employee);
-
-        console.log(empArray);
-
-        $("#employeeMonthlySalary").text("$" + endSal);
+        // employeeSal[employee.employeeFirstName] = employee.employeeSalary;
+        // console.log(employeeSal);
+        //empArray.push(employee);
+        //console.log(empArray);
 
         // clear form data
         $('#employeeInfo').find('input[type=text]').val('');
@@ -47,5 +42,31 @@ $(document).ready(function() {
         $emp.append('<p>' + empInfo.employeeSalary + '</p>');
 
         $('#employeeData').append($emp);
+        empInfo.employeeSalary = parseInt(empInfo.employeeSalary);
+        // employeeSal[empInfo.employeeFirstName] = empInfo.employeeSalary;
+        // console.log(employeeSal);
+        console.log("Single Monthly", singleMonthly);
+        console.log("Total Monthly", totalMonthly);
+
+        singleMonthly = employee.employeeSalary / 12;
+        console.log("Single Monthly", singleMonthly);
+
+        singleMonthly = parseFloat(singleMonthly);
+        console.log("Single Monthly", singleMonthly);
+
+
+        totalMonthly = totalMonthly + singleMonthly;
+
+        console.log("Single Monthly", singleMonthly);
+        console.log("Total Monthly", totalMonthly);
+        $("#employeeMonthlySalary").empty();
+        console.log("Single Monthly", singleMonthly);
+        console.log("Total Monthly", totalMonthly);
+        $("#employeeMonthlySalary").text("$" + totalMonthly);
+
     }
+
+
+
+
 });

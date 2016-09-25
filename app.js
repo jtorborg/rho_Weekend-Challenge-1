@@ -1,16 +1,22 @@
-var employee = {};
-var singleMonthly = 0;
-var totalMonthly = 0;
+/*--GLOBAL VARIABLES--*/
+var employee = {};  //variable for storing form inputs once serialized
+var singleMonthly = 0;  //variable for storing single employee's salary (divided by 12)
+var totalMonthly = 0; //variable for storing combined salary of all employees (divided by 12)
 //var employeeSal = {};
+
+/*--JQUERY DOCUMENT OBJECT--*/
 $(document).ready(function() {
+  /*--EVENT LISTENER--*/
     $('#employeeInfo').on('submit', function(event) {
+      /*--event.preventDefault() stops the page from jumping when event is triggered
+       "event" must be passed into the function as a parameter--*/
         event.preventDefault();
 
         //var empArray = [];
-
+        /*--serializeArray() turns the form inputs into an object literal --*/
         var fields = $('#employeeInfo').serializeArray();
         console.log('fields', fields);
-
+        /*-- "fields" is the id on the <form> element--*/
         fields.forEach(function(element, index) {
             employee[element.name] = element.value;
 
@@ -42,26 +48,29 @@ $(document).ready(function() {
         $emp.append('<p>' + empInfo.employeeSalary + '</p>');
 
         $('#employeeData').append($emp);
+        /*-convert salary property of object from a string to a number   -*/
         empInfo.employeeSalary = parseInt(empInfo.employeeSalary);
         // employeeSal[empInfo.employeeFirstName] = empInfo.employeeSalary;
         // console.log(employeeSal);
         console.log("Single Monthly", singleMonthly);
         console.log("Total Monthly", totalMonthly);
-
+        /*-assign the value of 1/12th of annual salary to a variable-*/
         singleMonthly = employee.employeeSalary / 12;
         console.log("Single Monthly", singleMonthly);
 
         singleMonthly = parseFloat(singleMonthly);
         console.log("Single Monthly", singleMonthly);
 
-
+        /*transfer monthly salary (1/12th annual salary) to a new variable (since singleMonthly variable gets reset for every employee object) -*/
         totalMonthly = totalMonthly + singleMonthly;
 
         console.log("Single Monthly", singleMonthly);
         console.log("Total Monthly", totalMonthly);
+        /*- empty <div> that holds previous total monthly salary for all employees  -*/
         $("#employeeMonthlySalary").empty();
         console.log("Single Monthly", singleMonthly);
         console.log("Total Monthly", totalMonthly);
+        /*- inserts the new total monthly salary for all employees in the <div> --*/
         $("#employeeMonthlySalary").text("$" + totalMonthly);
 
     }

@@ -1,15 +1,15 @@
 /*--GLOBAL VARIABLES--*/
-var employee = {};  //variable for storing form inputs once serialized
-var singleMonthly = 0;  //variable for storing single employee's salary (divided by 12)
+var employee = {}; //variable for storing form inputs once serialized
+var singleMonthly = 0; //variable for storing single employee's salary (divided by 12)
 var totalMonthly = 0; //variable for storing combined salary of all employees (divided by 12)
 //var employeeSal = {};
 
 /*--JQUERY DOCUMENT OBJECT--*/
 $(document).ready(function() {
-  /*--EVENT LISTENER--*/
+    /*--EVENT LISTENER--*/
     $('#employeeInfo').on('submit', function(event) {
-      /*--event.preventDefault() stops the page from jumping when event is triggered
-       "event" must be passed into the function as a parameter--*/
+        /*--event.preventDefault() stops the page from jumping when event is triggered
+         "event" must be passed into the function as a parameter--*/
         event.preventDefault();
 
         //var empArray = [];
@@ -36,6 +36,14 @@ $(document).ready(function() {
 
         // appending to the DOM
         appendDom(employee);
+
+        /*HARD MODE Step 2: create Event Listener -- event listener must be inside doc.ready function*/
+         $('.employee').on('click', '.delete', removeEmployee);
+
+
+
+
+
     });
 
     function appendDom(empInfo) {
@@ -46,6 +54,9 @@ $(document).ready(function() {
         $emp.append('<p>' + empInfo.employeeJobTitle + '</p>');
 
         $emp.append('<p>' + empInfo.employeeSalary + '</p>');
+        /*HARD MODE Step 1: append Delete button*/
+        $emp.append('<button class = "delete">' + "Delete" + '</button>');
+
 
         $('#employeeData').append($emp);
         /*-convert salary property of object from a string to a number   -*/
@@ -74,6 +85,15 @@ $(document).ready(function() {
         $("#employeeMonthlySalary").text("$" + totalMonthly);
 
     }
+
+    /*HARD MODE Step 3: create Function*/
+    function removeEmployee() {
+       console.log(this);
+       //Step 3a remove employee from DOM
+        $(this).parent().remove();
+        //Step 3b subtract employee salary from total
+      }
+
 
 
 

@@ -49,11 +49,11 @@ $(document).ready(function() {
     function appendDom(empInfo) {
         var $emp = $('<div class="employee"></div>');
 
-        $emp.append('<p>' + empInfo.employeeFirstName + ' ' + empInfo.employeeLastName + '</p>');
-        $emp.append('<p>' + empInfo.employeeIdNumber + '</p>');
-        $emp.append('<p>' + empInfo.employeeJobTitle + '</p>');
+        $emp.append('<p>' + "Employee Name:  " + empInfo.employeeFirstName + ' ' + empInfo.employeeLastName + '</p>');
+        $emp.append('<p>' + "Employee Id:  " + empInfo.employeeIdNumber + '</p>');
+        $emp.append('<p>' + "Employee Job Title:  " + empInfo.employeeJobTitle + '</p>');
 
-        $emp.append('<p>' + empInfo.employeeSalary + '</p>');
+        $emp.append('<p>' + "Employee Salary:  $" + empInfo.employeeSalary + '</p>');
         /*HARD MODE Step 1: append Delete button*/
         $emp.append('<button class = "delete">' + "Delete" + '</button>');
 
@@ -73,8 +73,8 @@ $(document).ready(function() {
         console.log("Single Monthly", singleMonthly);
 
         /*transfer monthly salary (1/12th annual salary) to a new variable (since singleMonthly variable gets reset for every employee object) -*/
-        totalMonthly = totalMonthly + singleMonthly;
-
+        totalMonthly += singleMonthly;
+        totalMonthly = Math.round(totalMonthly);
         console.log("Single Monthly", singleMonthly);
         console.log("Total Monthly", totalMonthly);
         /*- empty <div> that holds previous total monthly salary for all employees  -*/
@@ -84,14 +84,24 @@ $(document).ready(function() {
         /*- inserts the new total monthly salary for all employees in the <div> --*/
         $("#employeeMonthlySalary").text("$" + totalMonthly);
 
+
     }
 
     /*HARD MODE Step 3: create Function*/
     function removeEmployee() {
        console.log(this);
-       //Step 3a remove employee from DOM
+       console.log($(this));
+       console.log($(this.parent));
+
+       //Step 3a subtract employee salary from total
+       console.log(totalMonthly);
+
+
+       //totalMonthly -= this.
+
+       //Step 3b remove employee from DOM
         $(this).parent().remove();
-        //Step 3b subtract employee salary from total
+
       }
 
 

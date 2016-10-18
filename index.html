@@ -4,43 +4,53 @@
 <head>
     <meta charset="utf-8">
     <title>Rho Weekend 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="jquery-3.1.0.min.js"></script>
     <script src="app.js"></script>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans">
     <link rel="stylesheet" href="styles.css" />
 
 </head>
+<!-- matches the name we gave it when we use ng-app -->
+<body ng-app='basicApp'>
+    <!-- BasicController is defined in angular.module; basic is defined here  -->
+    <main ng-controller="BasicController as basic">
+        <form id="employeeInfo">
+            <label for="employeeFirstName">First Name:</label>
+            <!-- this ng-model is tied to a worker model with a property of firstName -->
+            <input type="text" id="employeeFirstName" name="employeeFirstName" ng-model='basic.worker.firstName' /> {{basic.worker.firstName}}
+            <label for="employeeLastName">Last Name:</label>
+            <!-- this ng-model is tied to a worker model with a property of lastName -->
+            <input type="text" id="employeeLastName" name="employeeLastName" ng-model='basic.worker.lastName' /> {{basic.worker.lastName}}
+            <label for="employeeIdNumber">ID Number:</label>
+            <!-- this ng-model is tied to a worker model with a property of idNumber -->
+            <input type="number" id="employeeIdNumber" name="employeeIdNumber" ng-model='basic.worker.idNumber' /> {{basic.worker.idNumber}}
+            <label for="employeeJobTitle">Job Title:</label>
+            <!-- this ng-model is tied to a worker model with a property of jobTitle -->
+            <input type="text" id="employeeJobTitle" name="employeeJobTitle" ng-model='basic.worker.jobTitle' /> {{basic.worker.jobTitle}}
+            <label for="employeeSalary">Annual Salary:</label>
+            <!-- this ng-model is tied to a worker model with a property of annualSalary -->
+            <input type="number" id="employeeSalary" name="employeeSalary" ng-model='basic.worker.annualSalary' /> {{basic.worker.annualSalary}}
+            <!-- When the submit button is clicked, it runs the delete Employee function-->
+            <button type="submit" ng-click='basic.createEmployee($index)'>Submit</button>
 
-<body>
-    <form id="employeeInfo">
-        <label for="employeeFirstName">First Name:</label>
-        <input type="text" id="employeeFirstName" name="employeeFirstName" />
+        </form>
+        <div>
+            <h2>Employee List</h2>
 
-        <label for="employeeLastName">Last Name:</label>
-        <input type="text" id="employeeLastName" name="employeeLastName" />
+            <!-- for every object in the workers array I will display self.worker -->
+            <li id="employeeData" ng-repeat="worker in basic.workers track by $index">
+<!-- this had to go inside of <li></li> tags in order to work -->
+                {{worker.firstName}} {{worker.lastName}} {{worker.idNumber}} {{worker.jobTitle}} {{worker.annualSalary}}
+                <button type="submit" ng-click='basic.deleteEmployee($index)'>Delete</button>
+            </li>
 
-
-        <label for="employeeIdNumber">ID Number:</label>
-        <input type="number" id="employeeIdNumber" name="employeeIdNumber" />
-
-
-        <label for="employeeJobTitle">Job Title:</label>
-        <input type="text" id="employeeJobTitle" name="employeeJobTitle" />
-
-        <label for="employeeSalary">Annual Salary:</label>
-        <input type="number" id="employeeSalary" name="employeeSalary" />
-
-
-
-        <button type="submit">Submit</button>
-    </form>
-    <div id="employeeData">
-        <h2>Employee List</h2>
-    </div>
-
-    <h4>Total Monthly Salary Expenditures:</h4>
-    <div id="employeeMonthlySalary">
-    </div>
+        </div>
+        <h4>Total Monthly Salary Expenditures:</h4>
+        <div id="employeeMonthlySalary">
+            {{basic.totalMonthly}}
+        </div>
+    </main>
 
 </body>
 
